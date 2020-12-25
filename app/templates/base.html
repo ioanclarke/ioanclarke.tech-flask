@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>IC</title>
+    {% endif %}
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav-bar">
+          <li><a href="{{ url_for('index') }}" class="nav-item">Home</a></li>
+          <li><a href="{{ url_for('projects') }}" class = "nav-item">Projects</a></li>
+          <li><a href="{{ url_for('stats') }}" class = "nav-item">Stats</a></li>
+          <li><a href="https://github.com/ioanclarke" class = "nav-item nav-item-social" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.youtube.com/c/Coco01" class = "nav-item nav-item-social" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </nav>
+    </header>
+    {% block content %}{% endblock %}
+  </body>
+</html>
