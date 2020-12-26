@@ -94,7 +94,7 @@ body {
 
 .stats-grid-container {
   display: grid;
-  grid-template-columns: repeat(2, minmax(90px, 1fr));
+  grid-template-columns: 90px 90px;
   justify-items: start;
   margin: 0 0 5px 15px;
 }
