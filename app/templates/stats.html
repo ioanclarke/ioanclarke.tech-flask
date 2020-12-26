@@ -1,5 +1,31 @@
 {% extends "base.html" %}
+{% set active_page = "stats" %}
 
 {% block content %}
-    <h1>hi</h1>
+    <div class="content-container">
+        <h2 style="text-align:center;">Overwatch</h2>
+        <div class ="stats-grid-container">
+        <div class="stats-grid-item">
+            {% for name in role_names %}
+                <br>{{ name }}
+            {% endfor %}
+        </div>
+        <div class="stats-grid-item">
+            {% for sr in role_srs %}
+                <br>{{ sr }}
+            {% endfor %}
+        </div>
+        <div class="stats-grid-item">
+            {% for name in hero_names %}
+                <br>{{ name }}
+            {% endfor %}
+        </div>
+        <div class="stats-grid-item">
+            {% for time in hero_times %}
+                <br>{{ time }}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+
 {% endblock %}

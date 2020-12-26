@@ -14,7 +14,7 @@ body {
 
 .nav-bar {
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 10vw 0;
   padding: 0;
   overflow: hidden;
   background-color: var(--green);
@@ -29,7 +29,7 @@ body {
   float: left;
   display: block;
   padding: 8px;
-  color: #000;
+  color: black;
   text-align: center;
   text-decoration: none;
 }
@@ -40,7 +40,7 @@ body {
 
 .nav-item:hover {
   color: white;
-  background-color: var(--dark-grey);
+  background-color: black;
 }
 
 .active-nav {
@@ -57,7 +57,7 @@ body {
   background-color: black;
   border-radius: 10px;
   border: 1px white solid;
-  display:inline-block;
+  display: inline-block;
   margin-top: 10vw;
   color: white;
 }
@@ -65,7 +65,7 @@ body {
 .project-list {
   display: flex;
   flex-direction: column;
-  margin: 10vw 10vw 0 10vw;
+  margin: 1vw 1vw 1vw 1vw;
   border: solid black 0;
 }
 
@@ -77,12 +77,12 @@ body {
   margin-bottom: 5px;
 }
 
-/*.project-container:last-of-type {
-  border-style: none;
-}*/
-
 .project-container:hover {
   background-color: black;
+}
+
+.project-container:hover .project-link{
+  color: white;
 }
 
 .project-link {
@@ -92,6 +92,13 @@ body {
   color: black;
 }
 
-.project-link:hover {
+.stats-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(90px, 1fr));
+  justify-items: start;
+  margin: 0 0 5px 15px;
+}
+
+.stats-grid-item {
   color: white;
 }

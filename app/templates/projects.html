@@ -1,5 +1,21 @@
 {% extends "base.html" %}
+{% set active_page = "projects" %}
 
 {% block content %}
-    <h1>hi</h1>
+    <div class="content-container" style="width:100%;">
+      <div class="project-list">
+        <div class="project-container">
+          <a href="https://www.ioanclarke.tech/projects/overwatch-miniwiki/wiki.html" class="project-link" target="_blank" rel="noopener noreferrer">Overwatch miniwiki</a>
+        </div>
+        <div class="project-container">
+          <a href="https://github.com/ioanclarke/glide" class="project-link" target="_blank" rel="noopener noreferrer">glide</a>
+        </div>
+        <div class="project-container">
+          <a href="https://github.com/ioanclarke/pulsemouse" class="project-link" target="_blank" rel="noopener noreferrer">pulsemouse</a>
+        </div>
+        <div class="project-container">
+          <a href="https://github.com/ioanclarke/adventofcode" class="project-link" target="_blank" rel="noopener noreferrer">AoC</a>
+        </div>
+      </div>
+    </div>
 {% endblock %}
