@@ -1,16 +1,24 @@
 import requests
-from bs4 import BeautifulSoup as bs
+from bs4 import BeautifulSoup as Bs
+from datetime import datetime, timezone
 
 
-class OWScraper:
+class Scraper:
+    def fetch_content(self, url):
+        page = requests.get(url)
+        soup = Bs(page.content, 'html.parser')
+        return soup
+
+    def get_time(self):
+        t = datetime.now(timezone.utc).astimezone()
+        t_str = t.strftime('%d-%m-%Y %H:%M:%S %Z').replace('Standard Time', '').replace('  ', ' ')
+        return t_str
+
+
+class OWScraper(Scraper):
     REGION = 'en-us'
     PLATFORM = 'pc'
     NAME = 'LetsGo-21230'
-
-    def fetch_content(self, url):
-        page = requests.get(url)
-        soup = bs(page.content, 'html.parser')
-        return soup
 
     def fetch_player_stats(self, soup):
         comp_roles = soup.findAll('div', class_='competitive-rank-tier')
@@ -31,42 +39,42 @@ class OWScraper:
                 hero_times[i] = f'00:{segments[0]}:{segments[1]}'
             elif len(segments) == 1:
                 hero_times[i] = f'00:00:{segments[0]}'
-        return list(set(role_names)), list(set(role_SRs)), hero_names, hero_times  # comp_ranks is turned into a set because it contains
-        # duplicates for some reason
+
+        half_length = int(len(role_names) / 2)
+        role_names, role_SRs = role_names[:half_length], role_SRs[:half_length]  # removes duplicates from lists
+        return role_names, role_SRs, hero_names, hero_times
 
     def get_stats(self):
         page_url = f'https://playoverwatch.com/{self.REGION}/career/{self.PLATFORM}/{self.NAME}/'
         page_soup = self.fetch_content(page_url)
         role_names, role_SRs, hero_names, hero_times = self.fetch_player_stats(page_soup)
-        return role_names, role_SRs, hero_names, hero_times
+        update_time = self.get_time()
+        return role_names, role_SRs, hero_names, hero_times, update_time
 
 
-class SmiteScraper:
+class SmiteScraper(Scraper):
     NAME = '4172839-Ioan'
 
-    def fetch_content(self, url):
-        page = requests.get(url)
-        soup = bs(page.content, 'html.parser')
-        return soup
-
     def fetch_player_stats(self, player):
-        rawName = player.find('div', class_='profile-header__name')
         rawLevel = player.find('div', class_='profile-header__level')
         rawPlaytime = player.find('div', class_='ptw__val')
         rawWinLoss = player.findAll(class_='ptw__val')
         rawKDA = player.findAll(class_='tsw__grid')
         rawMatchesPlayed = player.find('div', class_='tsw__grid')
 
-        name = rawName.text.strip()
         level = rawLevel.text.strip()
         playtime = rawPlaytime.text.strip()
+        playtime = playtime[:playtime.find('h')+1]
         win_loss = rawWinLoss[1].text.strip()
         kda = rawKDA[1].find('div', class_='tsw__grid__stat').text.strip()
         matches_played = rawMatchesPlayed.find('div', class_='tsw__grid__stat').text.strip()
-        return name, level, playtime, win_loss, kda, matches_played
+        return level, playtime, win_loss, kda, matches_played
 
     def get_stats(self):
         page_url = f'https://smite.guru/profile/{self.NAME}'
         page_soup = self.fetch_content(page_url)
         player = page_soup.find(id='cw')
-        name, level, playtime, win_loss, kda, matches_played = self.fetch_player_stats(player)
+        level, playtime, win_loss, kda, matches_played = self.fetch_player_stats(player)
+        update_time = self.get_time()
+
+        return level, playtime, matches_played, win_loss, kda, update_time
