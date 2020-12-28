@@ -25,7 +25,8 @@
       <nav>
         <ul class="nav-bar">
           {% for id, caption in navigation_bar %}
-          <li><a{% if id == active_page %} class="active-nav"{% else %} class="nav-item"{% endif %} href="{{ url_for(id) }}"
+          <li><a{% if id == "loading" and active_page ==  "stats"%} class="active-nav"{% elif id == active_page %} class="active-nav"
+          {% else %} class="nav-item"{% endif %}{% if id == "index" %} href="/"{% else %} href="{{ url_for(id) }}"{% endif %}
             >{{ caption }}</a></li>
           {% endfor %}
           <li><a href="https://github.com/ioanclarke" class = "nav-item nav-item-social" target="_blank" rel="noopener noreferrer">GitHub</a></li>
