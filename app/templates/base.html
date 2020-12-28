@@ -7,7 +7,7 @@
 {% set active_page = active_page|default('index') -%}
 
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -15,25 +15,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
     {% if title %}
-    <title>{{ title }}</title>
+        <title>{{ title }}</title>
     {% else %}
-    <title>IC</title>
+        <title>IC</title>
     {% endif %}
-  </head>
-  <body>
-    <header>
-      <nav>
+</head>
+<body>
+<header>
+    <nav>
         <ul class="nav-bar">
-          {% for id, caption in navigation_bar %}
-          <li><a{% if id == "loading" and active_page ==  "stats"%} class="active-nav"{% elif id == active_page %} class="active-nav"
-          {% else %} class="nav-item"{% endif %}{% if id == "index" %} href="/"{% else %} href="{{ url_for(id) }}"{% endif %}
-            >{{ caption }}</a></li>
-          {% endfor %}
-          <li><a href="https://github.com/ioanclarke" class = "nav-item nav-item-social" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://www.youtube.com/c/Coco01" class = "nav-item nav-item-social" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            {% for id, caption in navigation_bar %}
+                <li><a{% if id == "loading" and active_page ==  "stats" %}
+                    class="active-nav"{% elif id == active_page %} class="active-nav"
+                {% else %} class="nav-item"{% endif %}{% if id == "index" %} href="/"{% else %}
+                    href="{{ url_for(id) }}"{% endif %}
+                >{{ caption }}</a></li>
+            {% endfor %}
+            <li><a href="https://github.com/ioanclarke" class="nav-item nav-item-social" target="_blank"
+                   rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.youtube.com/c/Coco01" class="nav-item nav-item-social" target="_blank"
+                   rel="noopener noreferrer">YouTube</a></li>
         </ul>
-      </nav>
-    </header>
-    {% block content %}{% endblock %}
-  </body>
+    </nav>
+</header>
+{% block content %}{% endblock %}
+</body>
 </html>

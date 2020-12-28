@@ -4,7 +4,7 @@
 {% block content %}
     <div class="content-container">
         <span class="stats-title">Overwatch</span>
-        <div class ="stats-grid-container">
+        <div class="stats-grid-container">
             <div class="stats-grid-item">
                 {% for name in ow_role_names %}
                     {{ name }}<br>
@@ -49,5 +49,4 @@
         </div>
         <span class="stats-update-time">Updated: {{ smite_update_time }}</span>
     </div>
-
 {% endblock %}
