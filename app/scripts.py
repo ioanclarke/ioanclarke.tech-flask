@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup as Bs
 class Scraper:
     URL = None
 
-    def fetch_content(self, url):
-        page = requests.get(url)
+    def fetch_content(self):
+        page = requests.get(self.URL)
         soup = Bs(page.content, 'html.parser')
         return soup
 
@@ -21,8 +21,7 @@ class Scraper:
         return ()
 
     def get_stats(self):
-        page_url = self.URL
-        page_soup = self.fetch_content(page_url)
+        page_soup = self.fetch_content()
         player_stats = self.fetch_player_stats(page_soup)
         update_time = self.get_time()
         return player_stats + (update_time,)

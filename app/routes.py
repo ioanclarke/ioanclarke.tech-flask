@@ -17,11 +17,11 @@ def projects():
 @app.route('/stats')
 def stats():
     if app.debug:
-        ow_role_names, ow_role_srs  = ['Support', 'Damage', 'Tank'], [9999, 9999, 9999]
-        ow_hero_names, ow_hero_times = ['X'*8] * 5, ['00:00:00'] * 5
+        ow_role_names, ow_role_srs = ['Support', 'Damage', 'Tank'], [9999, 9999, 9999]
+        ow_hero_names, ow_hero_times = ['X' * 8] * 5, ['00:00:00'] * 5
         ow_update_time = '00:00:00 GMT  00-00-0000'
-        smite_level, smite_playtime,  = [999, '9999h']
-        smite_matches_played, smite_win_loss, smite_kda,  = 9999, '99.99%', 9.99
+        smite_level, smite_playtime, = [999, '9999h']
+        smite_matches_played, smite_win_loss, smite_kda, = 9999, '99.99%', 9.99
         smite_update_time = '00:00:00 GMT  00-00-0000'
     else:
         ow_scraper = OWScraper()
@@ -40,3 +40,9 @@ def stats():
 @app.route('/loading')
 def loading():
     return render_template('loading.html', title='...')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
